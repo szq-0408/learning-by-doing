@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="theme.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starfall Academy</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        .machine-page {
+            width: min(90%, 960px);
+            margin: 3rem auto;
+            padding: clamp(1.5rem, 5vw, 3.5rem);
+            text-align: left;
+        }
+
+        .machine-page section + section {
+            margin-top: clamp(3.5rem, 8vw, 6rem);
+        }
+
+        .machine-page h1,
+        .machine-page h2,
+        .machine-page h3,
+        .machine-page p {
+            text-align: left;
+        }
+
+        .machine-page h1 {
+            max-width: 700px;
+            margin-bottom: 1.5rem;
+        }
+
+        .machine-page h2 {
+            margin: 0 0 1.25rem;
+            color: var(--primary-dark);
+            font-size: clamp(1.65rem, 3vw, 2.25rem);
+            letter-spacing: -0.03em;
+        }
+
+        .machine-kicker {
+            margin: 0 0 0.5rem;
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .machine-intro {
+            max-width: 650px;
+            color: var(--muted);
+        }
+
+        .wizard-show {
+            position: relative;
+            overflow: hidden;
+            min-height: 390px;
+            padding: clamp(1.25rem, 4vw, 2rem);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background:
+                radial-gradient(ellipse at 50% 100%, var(--primary-light), transparent 65%),
+                var(--surface-soft);
+            text-align: center;
+        }
+
+        .wizard-cover {
+            position: absolute;
+            z-index: 3;
+            inset: 0;
+            display: grid;
+            place-content: center;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            border: 0;
+            background: linear-gradient(145deg, var(--surface), var(--surface-soft));
+            color: var(--text);
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .wizard-cover[hidden] {
+            display: none;
+        }
+
+        .wizard-cover-title {
+            display: block;
+            color: var(--primary-dark);
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .wizard-cover-hint {
+            color: var(--muted);
+        }
+
+        .wizard-cover:focus-visible,
+        .wizard-replay:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: -6px;
+        }
+
+        .wizard-stage {
+            display: flex;
+            min-height: 285px;
+            align-items: end;
+            justify-content: center;
+            gap: clamp(0.4rem, 3vw, 2rem);
+            padding-top: 2rem;
+        }
+
+        .wizard-character {
+            position: relative;
+            width: min(28%, 180px);
+            min-width: 82px;
+            height: 245px;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(120%);
+        }
+
+        .wizard-character.is-risen {
+            animation: wizard-pop 650ms cubic-bezier(0.2, 0.9, 0.25, 1.25) forwards;
+        }
+
+        .wizard-character.is-risen .wizard-wand {
+            animation: wizard-raise 500ms ease-out forwards;
+        }
+
+        @keyframes wizard-pop {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes wizard-raise {
+            from { transform: rotate(75deg); }
+            to { transform: rotate(35deg); }
+        }
+
+        .wizard-bubble {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 50%;
+            width: max-content;
+            max-width: min(240px, 75vw);
+            padding: 0.65rem 0.85rem;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--surface);
+            color: var(--text);
+            font-size: 0.88rem;
+            line-height: 1.35;
+            opacity: 0;
+            transform: translate(-50%, 8px);
+            transition: opacity 250ms ease, transform 250ms ease;
+        }
+
+        .wizard-character.is-speaking .wizard-bubble {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        .wizard-person {
+            position: relative;
+            width: 100%;
+            height: 145px;
+        }
+
+        .wizard-head {
+            position: absolute;
+            z-index: 1;
+            bottom: 58px;
+            left: 50%;
+            width: 76px;
+            height: 82px;
+            border: 2px solid rgba(23, 50, 77, 0.18);
+            border-radius: 48% 48% 44% 44%;
+            background: #f4c8a5;
+            transform: translateX(-50%);
+        }
+
+        .wizard-head::before {
+            position: absolute;
+            top: 31px;
+            left: 17px;
+            width: 6px;
+            height: 8px;
+            border-radius: 50%;
+            background: #26364b;
+            box-shadow: 25px 0 #26364b;
+            content: "";
+        }
+
+        .wizard-head::after {
+            position: absolute;
+            right: 27px;
+            bottom: 17px;
+            width: 18px;
+            height: 8px;
+            border-bottom: 2px solid #9c4f55;
+            border-radius: 50%;
+            content: "";
+        }
+
+        .wizard-hair {
+            position: absolute;
+            z-index: 2;
+            top: 3px;
+            left: 50%;
+            width: 82px;
+            height: 34px;
+            border-radius: 50% 50% 25% 25%;
+            background: #563c35;
+            transform: translateX(-50%);
+        }
+
+        .wizard-character[data-wizard="bram"] .wizard-hair {
+            width: 88px;
+            height: 29px;
+            background: #b36b32;
+        }
+
+        .wizard-character[data-wizard="elio"] .wizard-hair {
+            width: 84px;
+            height: 31px;
+            background: #282e39;
+        }
+
+        .wizard-robe {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 118px;
+            height: 80px;
+            border-radius: 52% 52% 8px 8px;
+            background: #7556a6;
+            transform: translateX(-50%);
+        }
+
+        .wizard-character[data-wizard="bram"] .wizard-robe {
+            background: #4c7b70;
+        }
+
+        .wizard-character[data-wizard="elio"] .wizard-robe {
+            background: #b36b32;
+        }
+
+        .wizard-wand {
+            position: absolute;
+            z-index: 3;
+            top: 38px;
+            right: 5px;
+            width: 7px;
+            height: 95px;
+            border-radius: 5px;
+            background: #8b5a37;
+            transform: rotate(35deg);
+            transform-origin: bottom center;
+        }
+
+        .wizard-wand::before {
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 8px 4px #fff, 0 0 18px 9px #a8dcff;
+            content: "";
+            opacity: 0;
+            transform: translateX(-50%) scale(0.5);
+        }
+
+        .wizard-character.is-risen .wizard-wand::before {
+            animation: wand-spark 900ms ease-in-out 450ms 3 alternate;
+        }
+
+        @keyframes wand-spark {
+            to { opacity: 1; transform: translateX(-50%) scale(1.2); }
+        }
+
+        .wizard-name {
+            position: absolute;
+            right: 0;
+            bottom: -1.8rem;
+            left: 0;
+            color: var(--primary-dark);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .wizard-replay {
+            margin-top: 2.5rem;
+            padding: 0.75rem 1.25rem;
+            border: 0;
+            border-radius: 999px;
+            background: var(--primary);
+            color: var(--button-text);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .wizard-replay[hidden] {
+            display: none;
+        }
+
+        .wizard-status {
+            min-height: 1.5em;
+            margin: 1rem 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-align: center !important;
+        }
+
+        @media (max-width: 600px) {
+            .wizard-show {
+                min-height: 350px;
+                padding: 1rem 0.5rem;
+            }
+
+            .wizard-stage {
+                min-height: 255px;
+                gap: 0.2rem;
+            }
+
+            .wizard-character {
+                min-width: 72px;
+                height: 220px;
+            }
+
+            .wizard-head {
+                width: 62px;
+                height: 70px;
+            }
+
+            .wizard-head::before {
+                left: 12px;
+                box-shadow: 23px 0 #26364b;
+            }
+
+            .wizard-hair {
+                width: 68px;
+            }
+
+            .wizard-character[data-wizard="bram"] .wizard-hair,
+            .wizard-character[data-wizard="elio"] .wizard-hair {
+                width: 72px;
+            }
+
+            .wizard-robe {
+                width: 94px;
+            }
+
+            .wizard-wand {
+                right: 0;
+                height: 82px;
+            }
+
+            .wizard-bubble {
+                max-width: 190px;
+                font-size: 0.78rem;
+            }
+
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .wizard-character.is-risen,
+            .wizard-character.is-risen .wizard-wand,
+            .wizard-character.is-risen .wizard-wand::before {
+                animation-duration: 1ms;
+            }
+
+            .wizard-bubble {
+                transition-duration: 1ms;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <header id="site-header"></header>
+    <main class="container machine-page">
+        <section aria-labelledby="wizard-title">
+            <p class="machine-kicker">A little magic show</p>
+            <h1 id="wizard-title">Welcome to Starfall Academy</h1>
+            <p class="machine-intro">Meet three young spellcasters and hear what makes their school special.</p>
+
+            <div class="wizard-show" id="wizard-show">
+                <button class="wizard-cover" id="wizard-cover" type="button">
+                    <span class="wizard-cover-title">Starfall Academy</span>
+                    <span class="wizard-cover-hint">Press to begin the magic</span>
+                </button>
+
+                <div class="wizard-stage" aria-label="Three young spellcasters at Starfall Academy">
+                    <article class="wizard-character" data-wizard="lyra">
+                        <p class="wizard-bubble">"At Starfall, every new spell begins with a little courage!"</p>
+                        <div class="wizard-person" aria-hidden="true">
+                            <div class="wizard-wand"></div>
+                            <div class="wizard-hair"></div>
+                            <div class="wizard-head"></div>
+                            <div class="wizard-robe"></div>
+                        </div>
+                        <span class="wizard-name">Lyra</span>
+                    </article>
+                    <article class="wizard-character" data-wizard="bram">
+                        <p class="wizard-bubble">"And the dining hall serves the best enchanted pies!"</p>
+                        <div class="wizard-person" aria-hidden="true">
+                            <div class="wizard-wand"></div>
+                            <div class="wizard-hair"></div>
+                            <div class="wizard-head"></div>
+                            <div class="wizard-robe"></div>
+                        </div>
+                        <span class="wizard-name">Bram</span>
+                    </article>
+                    <article class="wizard-character" data-wizard="elio">
+                        <p class="wizard-bubble">"Just follow the stars to find your next adventure."</p>
+                        <div class="wizard-person" aria-hidden="true">
+                            <div class="wizard-wand"></div>
+                            <div class="wizard-hair"></div>
+                            <div class="wizard-head"></div>
+                            <div class="wizard-robe"></div>
+                        </div>
+                        <span class="wizard-name">Elio</span>
+                    </article>
+                </div>
+                <button class="wizard-replay" id="wizard-replay" type="button" hidden>Play again</button>
+                <p class="wizard-status" id="wizard-status" aria-live="polite">The stage is ready.</p>
+            </div>
+        </section>
+    </main>
+    <script src="nav.js"></script>
+    <script>
+        // Let the three original students rise in turn and deliver their lines.
+        const wizardCover = document.getElementById("wizard-cover");
+        const wizardCharacters = [...document.querySelectorAll(".wizard-character")];
+        const wizardReplay = document.getElementById("wizard-replay");
+        const wizardStatus = document.getElementById("wizard-status");
+        const wizardLines = [
+            { text: "At Starfall, every new spell begins with a little courage!", pitch: 1.2, rate: 1 },
+            { text: "And the dining hall serves the best enchanted pies!", pitch: 0.9, rate: 0.92 },
+            { text: "Just follow the stars to find your next adventure.", pitch: 1.05, rate: 0.96 }
+        ];
+        let wizardTimers = [];
+
+        function startWizardShow() {
+            wizardTimers.forEach(window.clearTimeout);
+            wizardTimers = [];
+            if ("speechSynthesis" in window) {
+                window.speechSynthesis.cancel();
+            }
+            wizardCharacters.forEach(character => {
+                character.classList.remove("is-risen", "is-speaking");
+            });
+            wizardReplay.hidden = true;
+            wizardCover.hidden = true;
+            wizardStatus.textContent = "The spellcasters are arriving.";
+
+            wizardCharacters.forEach((character, index) => {
+                wizardTimers.push(window.setTimeout(() => {
+                    character.classList.add("is-risen");
+                    wizardTimers.push(window.setTimeout(() => {
+                        character.classList.add("is-speaking");
+                        const line = wizardLines[index];
+                        if ("speechSynthesis" in window) {
+                            const voiceLine = new SpeechSynthesisUtterance(line.text);
+                            voiceLine.pitch = line.pitch;
+                            voiceLine.rate = line.rate;
+                            window.speechSynthesis.speak(voiceLine);
+                        }
+                        wizardStatus.textContent = `${character.dataset.wizard} says: ${line.text}`;
+                        wizardTimers.push(window.setTimeout(() => {
+                            character.classList.remove("is-speaking");
+                            if (index === wizardCharacters.length - 1) {
+                                wizardStatus.textContent = "The show is over. Ready for another?";
+                                wizardReplay.hidden = false;
+                            }
+                        }, 2400));
+                    }, 650));
+                }, index * 3200));
+            });
+        }
+
+        wizardCover.addEventListener("click", startWizardShow);
+        wizardReplay.addEventListener("click", startWizardShow);
+
+    </script>
+</body>
+</html>

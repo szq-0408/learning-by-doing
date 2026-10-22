@@ -12,3 +12,21 @@ function showRandomQuote() {
 
 randomizeButton.addEventListener('click', showRandomQuote);
 showRandomQuote();
+
+// Quote cards open the machine page with a one-time arrival effect.
+document.querySelectorAll('.quotes-grid .quote').forEach(card => {
+  card.setAttribute('role', 'link');
+  card.tabIndex = 0;
+
+  const openMachine = () => {
+    window.location.href = 'machine.html?from=quotes';
+  };
+
+  card.addEventListener('click', openMachine);
+  card.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openMachine();
+    }
+  });
+});

@@ -1,37 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="theme.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Project Ideas</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="icon" href="GGAD.png" sizes="32x32">
+    <script src="theme.js"></script>
+    <title>Project Ideas | Learning by Doing</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="GGAD.png" sizes="32x32">
 </head>
 <body>
     <header id="site-header"></header>
-
-    <main class="container">
-        <h1>My Project Ideas</h1>
-        <p>Here are some of the concepts I would like to build:</p>
-        <ul class="project-list">
-            <li>A website for a restaurant</li>
-            <li>A website for a school</li>
-            <li>A website for a company</li>
-            <li>A website for a blog</li>
-            <li>A website for a portfolio</li>
-            <li>A website for a game</li>
-            <li>A website for a book</li>
-            <li>A website for a movie</li>
-            <li>A website for a music album</li>
-            <li>A website for a bookstore</li>
-        </ul>
+    <main class="projects-page">
+        <div class="projects-intro">
+            <p class="home-kicker">The idea notebook</p>
+            <h1>Small ideas.<br>Room to grow.</h1>
+            <p>Five next chapters for this little corner of the web.<br>Inspired by the stories, words, and curious characters already here.</p>
+            <span class="projects-note">5 concepts ? One small step at a time</span>
+        </div>
+        <section class="ideas-grid" aria-label="Five project ideas">
+            <article class="idea-card idea-card-featured" aria-labelledby="idea-01">
+                <div class="idea-card-top"><span class="idea-icon" aria-hidden="true">?</span><span class="idea-number">01 / 05</span></div>
+                <p class="idea-category">Featured idea ? Interactive story</p>
+                <h2 id="idea-01">Starfall: Your First Spell</h2>
+                <p class="idea-description">Turn the academy?s magic show into a story you can step inside. Meet your guide, choose a spell, and discover a different ending with every decision.</p>
+                <ul class="idea-tags" aria-label="Planned features"><li>Choose your character</li><li>Branching story</li><li>Spell collection</li></ul>
+                <div class="idea-first-step"><span>First small step</span><p>Start with one classroom, three choices, and a surprise ending.</p></div>
+                <a class="idea-link" href="starfall.html">Visit the academy <span aria-hidden="true">?</span></a>
+            </article>
+            <article class="idea-card" aria-labelledby="idea-02">
+                <div class="idea-card-top"><span class="idea-icon" aria-hidden="true">??</span><span class="idea-number">02 / 05</span></div>
+                <p class="idea-category">Playful companion</p>
+                <h2 id="idea-02">A Cat with an Attitude</h2>
+                <p class="idea-description">Give the tiny visitor a world of its own. Offer a toy, try a gentle pat, and discover what earns a purr?or a very opinionated meow.</p>
+                <ul class="idea-tags" aria-label="Planned features"><li>Mood changes</li><li>Little reactions</li><li>Sound effects</li></ul>
+                <div class="idea-first-step"><span>First small step</span><p>Add three moods and let the cat react to one toy.</p></div>
+                <a class="idea-link" href="machine.html">Meet the cat <span aria-hidden="true">?</span></a>
+            </article>
+            <article class="idea-card" aria-labelledby="idea-03">
+                <div class="idea-card-top"><span class="idea-icon" aria-hidden="true">?</span><span class="idea-number">03 / 05</span></div>
+                <p class="idea-category">Daily inspiration</p>
+                <h2 id="idea-03">Your Pocket of Quotes</h2>
+                <p class="idea-description">Make the quote collection feel personal. Find words for your mood, save your favorites, and return to a small collection that grows with you.</p>
+                <ul class="idea-tags" aria-label="Planned features"><li>Mood filters</li><li>Saved favorites</li><li>Daily pick</li></ul>
+                <div class="idea-first-step"><span>First small step</span><p>Add a favorite button and remember saved quotes on this device.</p></div>
+                <a class="idea-link" href="quotes.html">Explore the quotes <span aria-hidden="true">?</span></a>
+            </article>
+            <article class="idea-card" aria-labelledby="idea-04">
+                <div class="idea-card-top"><span class="idea-icon" aria-hidden="true">?</span><span class="idea-number">04 / 05</span></div>
+                <p class="idea-category">Poetry & reflection</p>
+                <h2 id="idea-04">A Quiet Reading Room</h2>
+                <p class="idea-description">Build on the home page?s love of poetry with a peaceful reading space. Pair a poem with an illustration and leave a thought beside a favorite line.</p>
+                <ul class="idea-tags" aria-label="Planned features"><li>Poem collection</li><li>Reading themes</li><li>Personal notes</li></ul>
+                <div class="idea-first-step"><span>First small step</span><p>Create a reading view for one poem with a private notes area.</p></div>
+                <a class="idea-link" href="index.html">Visit the home page <span aria-hidden="true">?</span></a>
+            </article>
+            <article class="idea-card" aria-labelledby="idea-05">
+                <div class="idea-card-top"><span class="idea-icon" aria-hidden="true">?</span><span class="idea-number">05 / 05</span></div>
+                <p class="idea-category">Learning journal</p>
+                <h2 id="idea-05">Small Steps, Real Progress</h2>
+                <p class="idea-description">Tell the story behind Learning by Doing. Collect experiments, show before-and-after changes, and write down one thing learned from each small build.</p>
+                <ul class="idea-tags" aria-label="Planned features"><li>Build diary</li><li>Before & after</li><li>Milestones</li></ul>
+                <div class="idea-first-step"><span>First small step</span><p>Publish the first entry about turning this ideas list into cards.</p></div>
+                <a class="idea-link" href="about.html">Read the site?s story <span aria-hidden="true">?</span></a>
+            </article>
+        </section>
+        <p class="projects-outro">Ideas for what comes next. Explore the existing pages to see where each one begins.</p>
     </main>
-
-    <footer>
-        <p>&copy; 2026 My Project Ideas</p>
-    </footer>
-
+    <footer><p>&copy; 2026 Learning by Doing</p></footer>
     <script src="nav.js"></script>
 </body>
 </html>
